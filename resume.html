@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Mohit</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --ink:    #1a1a2e;
+      --accent: #e94560;
+      --navy:   #0f3460;
+      --muted:  #6b7280;
+      --border: #e2e8f0;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f4fd 55%, #f0fff4 100%);
+      color: var(--ink); min-height: 100vh;
+    }
+    #cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+    /* HEADER */
+    .resume-header {
+      background: var(--navy); color: white;
+      padding: 72px 0 48px; position: relative; overflow: hidden;
+    }
+    .resume-header::before {
+      content:''; position:absolute; top:-80px; right:-80px;
+      width:340px; height:340px; background:rgba(233,69,96,.15); border-radius:50%;
+    }
+    .resume-header::after {
+      content:''; position:absolute; bottom:-90px; left:-50px;
+      width:260px; height:260px; background:rgba(255,255,255,.05); border-radius:50%;
+    }
+    .resume-header h1 {
+      font-family:'DM Serif Display',serif;
+      font-size:clamp(3rem,7vw,5rem); letter-spacing:-1.5px; margin-bottom:4px;
+    }
+    .header-tagline {
+      color:#93c5fd; font-size:.88rem; font-weight:500;
+      letter-spacing:2.5px; text-transform:uppercase; margin-bottom:22px;
+    }
+    .contact-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    .contact-pill {
+      display:inline-flex; align-items:center; gap:7px;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+      color:white; padding:7px 16px; border-radius:100px;
+      font-size:.85rem; text-decoration:none; transition:background .2s;
+    }
+    .contact-pill:hover { background:rgba(255,255,255,.24); color:white; }
+    .contact-pill i { color:#93c5fd; font-size:.75rem; }
+
+    /* BODY */
+    .resume-body { max-width:960px; margin:0 auto; padding:48px 20px 80px; }
+
+    /* SECTION HEADING */
+    .sec { display:flex; align-items:center; gap:12px; margin:48px 0 22px; }
+    .sec-icon {
+      width:36px; height:36px; border-radius:10px;
+      background:var(--accent); color:white;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.82rem; flex-shrink:0;
+    }
+    .sec h2 { font-family:'DM Serif Display',serif; font-size:1.5rem; margin:0; letter-spacing:-.3px; }
+    .sec::after { content:''; flex:1; height:1px; background:var(--border); margin-left:10px; }
+
+    /* OBJECTIVE */
+    .obj-card {
+      background:white; border-left:4px solid var(--accent); border-radius:12px;
+      padding:22px 26px; box-shadow:0 2px 12px rgba(0,0,0,.06);
+      font-size:1rem; line-height:1.75; color:#374151;
+    }
+
+    /* SKILL TAGS */
+    .skill-group { margin-bottom:16px; }
+    .sgl { font-size:.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); font-weight:600; margin-bottom:10px; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .tag { padding:5px 15px; border-radius:100px; font-size:.84rem; font-weight:500; border:1px solid transparent; }
+    .tb { background:#eef2ff; color:#4338ca; border-color:#c7d2fe; }
+    .ta { background:#fef3c7; color:#92400e; border-color:#fde68a; }
+    .tg { background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+    .tp { background:#faf5ff; color:#6d28d9; border-color:#ddd6fe; }
+    .tr { background:#fff1f2; color:#9f1239; border-color:#fecdd3; }
+
+    /* CARDS */
+    .card-block {
+      background:white; border-radius:14px; padding:22px 26px;
+      margin-bottom:16px; box-shadow:0 2px 12px rgba(0,0,0,.06);
+      border-top:3px solid transparent;
+      transition:border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .card-block:hover { border-top-color:var(--accent); box-shadow:0 8px 28px rgba(0,0,0,.1); transform:translateY(-2px); }
+    .card-block.proj { border-left:4px solid var(--navy); border-top:none; }
+    .card-block.proj:hover { border-left-color:var(--accent); }
+
+    .chr { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+    .ct  { font-size:1.05rem; font-weight:700; margin:0; color:var(--ink); }
+    .cc  { color:var(--accent); font-weight:600; }
+    .cm  { color:var(--muted); font-size:.82rem; margin-top:2px; }
+    .dp  { background:#f1f5f9; color:var(--muted); padding:4px 13px; border-radius:100px; font-size:.78rem; font-weight:500; white-space:nowrap; }
+
+    .bl { list-style:none; padding:0; margin:0; }
+    .bl li { padding:4px 0 4px 20px; position:relative; font-size:.93rem; color:#4b5563; line-height:1.65; }
+    .bl li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:.78rem; top:6px; }
+
+    /* EDUCATION */
+    .edu-card {
+      background:linear-gradient(135deg,var(--navy),#1e3a8a);
+      color:white; border-radius:14px; padding:26px 30px;
+      display:flex; align-items:center; gap:20px;
+      box-shadow:0 4px 20px rgba(15,52,96,.25);
+    }
+    .edu-ico {
+      width:54px; height:54px; border-radius:14px;
+      background:rgba(255,255,255,.15);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; flex-shrink:0;
+    }
+    .edu-card h5 { font-family:'DM Serif Display',serif; font-size:1.15rem; margin-bottom:4px; }
+    .edu-card p  { margin:0; opacity:.8; font-size:.88rem; }
+    .edu-card .cw { margin-top:8px; opacity:.7; font-size:.8rem; }
+
+    /* ADDITIONAL */
+    .add-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .add-item { background:white; border-radius:12px; padding:18px 20px; box-shadow:0 2px 10px rgba(0,0,0,.05); display:flex; align-items:flex-start; gap:14px; }
+    .add-item .ico { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .add-item strong { font-size:.9rem; display:block; margin-bottom:2px; }
+    .add-item span   { font-size:.82rem; color:var(--muted); }
+
+    /* DOWNLOAD */
+    .dl-section { text-align:center; padding:44px 0 16px; }
+    .btn-dl {
+      background:var(--accent); color:white;
+      padding:15px 40px; border-radius:100px; font-size:1rem; font-weight:600;
+      text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+      box-shadow:0 8px 24px rgba(233,69,96,.35); transition:transform .2s,box-shadow .2s;
+    }
+    .btn-dl:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(233,69,96,.45); color:white; }
+    .btn-proj {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 26px; border:2px solid var(--navy); border-radius:100px;
+      color:var(--navy); font-weight:600; font-size:.92rem;
+      text-decoration:none; transition:all .2s; margin-left:12px;
+    }
+    .btn-proj:hover { background:var(--navy); color:white; }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .5s ease,transform .5s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:600px){
+      .resume-header{ padding:90px 0 40px; }
+      .edu-card{ flex-direction:column; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+ 
+
+  <!-- HEADER -->
+  <header class="resume-header animate__animated animate__fadeIn">
+    <div class="container text-center" style="position:relative;z-index:1">
+      <h1 class="animate__animated animate__fadeInDown">Mohit</h1>
+      <p class="header-tagline animate__animated animate__fadeInUp">
+        Interactive Design &amp; Technology &nbsp;·&nbsp; Visual Designer &nbsp;·&nbsp; Web Developer
+      </p>
+      <div class="contact-pills animate__animated animate__fadeInUp">
+        <a href="tel:+16395544086"           class="contact-pill"><i class="fa fa-phone"></i> (639) 554-4086</a>
+        <a href="mailto:4086mohit@gmail.com" class="contact-pill"><i class="fa fa-envelope"></i> 4086mohit@gmail.com</a>
+        <span class="contact-pill"><i class="fa fa-location-dot"></i> Saskatoon, SK</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="resume-body">
+
+    <!-- Objective -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-bullseye"></i></div>
+      <h2>Objective</h2>
+    </div>
+    <div class="obj-card reveal">
+      Creative and detail-oriented Graphic Design student eager to contribute innovative ideas while collaborating in a dynamic design environment, with a strong foundation in visual content creation and proficiency in Adobe Creative Suite.
+    </div>
+
+    <!-- Skills -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-star"></i></div>
+      <h2>Skills</h2>
+    </div>
+    <div class="skill-group reveal">
+      <p class="sgl">Design &amp; Creative Tools</p>
+      <div class="tags">
+        <span class="tag ta">Adobe Illustrator</span>
+        <span class="tag ta">Adobe Photoshop</span>
+        <span class="tag ta">Adobe InDesign</span>
+        <span class="tag ta">Lightroom</span>
+        <span class="tag ta">Premiere Pro</span>
+        <span class="tag ta">Figma</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <p class="sgl">Design &amp; Production</p>
+      <div class="tags">
+        <span class="tag tb">Graphic Design</span>
+        <span class="tag tb">Visual Communication</span>
+        <span class="tag tb">Typography</span>
+        <span class="tag tb">Layout Design</span>
+        <span class="tag tb">Video Editing</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <p class="sgl">Web &amp; Development</p>
+      <div class="tags">
+        <span class="tag tg">HTML5 &amp; CSS3</span>
+        <span class="tag tg">JavaScript</span>
+        <span class="tag tg">React</span>
+        <span class="tag tg">React Native</span>
+        <span class="tag tg">WordPress</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <p class="sgl">3D &amp; Animation</p>
+      <div class="tags">
+        <span class="tag tp">Blender</span>
+        <span class="tag tp">Blender Animation</span>
+        <span class="tag tp">Unreal Engine</span>
+        <span class="tag tp">2D Animation</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <p class="sgl">Technical &amp; Fabrication</p>
+      <div class="tags">
+        <span class="tag tr">Tinkercad</span>
+        <span class="tag tr">3D Printing</span>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-graduation-cap"></i></div>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-ico">🎓</div>
+      <div>
+        <h5>Interactive Design and Technology Diploma</h5>
+        <p>Saskatchewan Polytechnic &nbsp;·&nbsp; Saskatoon, SK &nbsp;·&nbsp; 2024 – Present &nbsp;(Expected June 2026)</p>
+        <p class="cw">Coursework: Web Development · Graphic Design · 3D Modelling · Typography · Video Editing · UX Design · Audio Production</p>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-briefcase"></i></div>
+      <h2>Professional Experience</h2>
+    </div>
+
+    <div class="card-block reveal">
+      <div class="chr">
+        <div>
+          <p class="ct">Sales Advisor &nbsp;<span class="cc">· SportChek</span></p>
+          <p class="cm">Saskatoon, SK &nbsp;·&nbsp; Part-time</p>
+        </div>
+        <span class="dp"><i class="fa fa-calendar-alt me-1"></i>Sept 2024 – Present</span>
+      </div>
+      <ul class="bl">
+        <li>Delivered personalized customer service by assisting customers with product selection and providing tailored recommendations based on individual needs.</li>
+        <li>Maintained strong product and promotions knowledge to drive sales and effectively upsell across departments.</li>
+        <li>Collaborated with team members to meet sales targets, uphold store standards, and create a consistently positive shopping experience.</li>
+      </ul>
+    </div>
+
+    <div class="card-block reveal">
+      <div class="chr">
+        <div>
+          <p class="ct">Library Assistant &nbsp;<span class="cc">· School Library, RMSC</span></p>
+          <p class="cm">Chail, Himachal Pradesh</p>
+        </div>
+        <span class="dp"><i class="fa fa-calendar-alt me-1"></i>July 2022 – Mar 2023</span>
+      </div>
+      <ul class="bl">
+        <li>Assisted students and staff with locating, borrowing, and returning books, ensuring efficient library operations.</li>
+        <li>Organized, shelved, and maintained library resources to keep the collection accessible and well-structured.</li>
+        <li>Supported daily activities by monitoring the environment, assisting with inventory, and creating reading-promotion displays.</li>
+      </ul>
+    </div>
+
+    <!-- Projects -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-code"></i></div>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="card-block proj reveal">
+      <div class="chr">
+        <p class="ct">Comic Book Poster Design</p>
+        <div class="tags"><span class="tag ta" style="font-size:.76rem">Illustrator</span><span class="tag ta" style="font-size:.76rem">Photoshop</span></div>
+      </div>
+      <ul class="bl">
+        <li>Created a custom illustrated poster with dynamic composition and strong visual storytelling techniques.</li>
+        <li>Applied color theory and typographic hierarchy to enhance visual impact and emotional depth.</li>
+      </ul>
+    </div>
+
+    <div class="card-block proj reveal">
+      <div class="chr">
+        <p class="ct">3D Room Design</p>
+        <div class="tags"><span class="tag tp" style="font-size:.76rem">Blender</span></div>
+      </div>
+      <ul class="bl">
+        <li>Designed and modelled a complete 3D interior environment in Blender with detailed furniture, props, and architecture.</li>
+        <li>Applied lighting rigs, PBR textures, and camera angles to achieve polished, photorealistic renders.</li>
+      </ul>
+    </div>
+
+    <div class="card-block proj reveal">
+      <div class="chr">
+        <p class="ct">Movie / Song Poster Design</p>
+        <div class="tags"><span class="tag ta" style="font-size:.76rem">Photoshop</span><span class="tag ta" style="font-size:.76rem">Illustrator</span></div>
+      </div>
+      <ul class="bl">
+        <li>Developed concept-driven poster designs communicating themes through layout, branding, and visual hierarchy.</li>
+        <li>Focused on professional print-ready compositions with refined color systems and typography.</li>
+      </ul>
+    </div>
+
+    <div class="text-center mt-3 mb-2 reveal">
+      <a href="projects.html" class="btn-proj"><i class="fa fa-arrow-right"></i> View All Projects</a>
+    </div>
+
+    <!-- References -->
+    <div class="sec reveal">
+      <div class="sec-icon"><i class="fa fa-user-check"></i></div>
+      <h2>References</h2>
+    </div>
+    <div class="obj-card reveal" style="border-color:var(--navy)">Available upon request.</div>
+
+    <!-- Download -->
+    <div class="dl-section reveal">
+      <a href="assests/Resume_Mohit.pdf" download class="btn-dl">
+        <i class="fa fa-download"></i> Download PDF Resume
+      </a>
+      <a href="projects.html" class="btn-proj"><i class="fa fa-folder-open"></i> My Projects</a>
+    </div>
+
+  </div>
+
+  
+<footer style="background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; padding: 52px 0 0;">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start;">
+
+    <!-- Footer -->
+    <div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.9rem;letter-spacing:-1px;margin-bottom:8px;">
+        Mohit Sandhu<em style="color:var(--accent);font-style:normal;"></em>
+      </div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:20px;">Designer · Developer · Creator</p>
+      <div style="display:flex;gap:10px;">
+        <a href="https://github.com/Mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/mohit_sandhu86?igsh=MjNzenBoMmZvOHFk&utm_source=qr" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Contact</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:13px;">
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(233,69,96,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-envelope" style="color:var(--accent);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Email</span>
+            <a href="mailto:youremail@gmail.com" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">4086mohit@gmail.com</a>
+          </div>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,203,106,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-phone" style="color:var(--gold);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Phone</span>
+            <p href="tel:+11234567890" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">+1 6395544086</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Navigate -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Navigate</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
+        <li><a href="index.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Home</a></li>
+        <li><a href="projects.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Projects</a></li>
+        <li><a href="resume.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Resume</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="height:1px;background:rgba(255,255,255,.08);max-width:1080px;margin:40px auto 0;"></div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">© 2025 <span style="color:var(--accent);">Mohit</span>. All rights reserved.</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">Made with <span style="color:var(--accent);">♥</span> at Saskatchewan Polytechnic</p>
+  </div>
+</footer>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#navbar").load("components/navbar.html", function () {
+        $("#resume-tab").addClass("active");
+      });
+      const obs = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.08 }
+      );
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    });
+  </script>
+</body>
+</html>

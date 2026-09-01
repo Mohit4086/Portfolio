@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometown Chail</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --pine:    #2d6a4f;
+    --forest:  #1b4332;
+    --sky:     #1a7abf;
+    --mist:    #e8f4fd;
+    --snow:    #f4f9fc;
+    --gold:    #c8860a;
+    --text:    #1a2332;
+    --text-mid:#3a5068;
+    --navy: #0f3460;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: linear-gradient(160deg, #dff0fb 0%, #e8f5ee 50%, #d6eef8 100%);
+    background-attachment: fixed;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+#cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+  /* Decorative blobs */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -150px; right: -150px;
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, rgba(26,122,191,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -120px; left: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(45,106,79,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Hero header ── */
+  .hero {
+    text-align: center;
+    padding: 90px 20px 50px;
+  }
+
+  .hero .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pine);
+    background: rgba(45,106,79,0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--pine);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 520px;
+    margin: 0 auto 10px;
+    line-height: 1.6;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 28px auto 60px;
+  }
+  .hero-divider span {
+    display: block;
+    height: 2px;
+    width: 60px;
+    border-radius: 1px;
+  }
+  .hero-divider .line-green { background: var(--pine); }
+  .hero-divider .line-blue  { background: var(--sky); }
+  .hero-divider .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* ── Section cards ── */
+  .sections {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .section-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 8px 36px rgba(26,90,140,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    min-height: 320px;
+  }
+
+  .section-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(26,90,140,0.13);
+  }
+
+  .section-card.reverse {
+    flex-direction: row-reverse;
+  }
+
+  /* Image half */
+  .card-img-half {
+    flex: 0 0 45%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-img-half img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .section-card:hover .card-img-half img {
+    transform: scale(1.04);
+  }
+
+  /* Colored overlay strip on image edge */
+  .card-img-half::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 6px;
+    right: 0;
+  }
+  .section-card.reverse .card-img-half::after {
+    right: auto;
+    left: 0;
+  }
+
+  .strip-green  .card-img-half::after { background: var(--pine); }
+  .strip-blue   .card-img-half::after { background: var(--sky); }
+  .strip-gold   .card-img-half::after { background: var(--gold); }
+  .strip-forest .card-img-half::after { background: var(--forest); }
+  .strip-mist   .card-img-half::after { background: #5bb3e8; }
+
+  /* Text half */
+  .card-text-half {
+    flex: 1;
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: 0.08;
+    color: var(--text);
+    position: absolute;
+  }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .label-green  { color: var(--pine); }
+  .label-blue   { color: var(--sky); }
+  .label-gold   { color: var(--gold); }
+  .label-forest { color: var(--forest); }
+  .label-mist   { color: #1a7abf; }
+
+  .card-text-half h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .card-text-half p {
+    font-size: 0.97rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .card-text-half p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Mobile stacking */
+  @media (max-width: 767px) {
+    .section-card,
+    .section-card.reverse {
+      flex-direction: column;
+    }
+    .card-img-half {
+      flex: 0 0 240px;
+      height: 240px;
+    }
+    .card-img-half::after { display: none; }
+    .card-text-half {
+      padding: 28px 24px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <script src="cursor-trail.js" data-color="#e94560"></script>
+
+  <div id="navbar"></div>
+
+  <!-- Hero -->
+  <div class="hero animate__animated animate__fadeInDown">
+    <span class="tag">Himachal Pradesh, India</span>
+    <h1>My Hometown<br><em>Chail</em></h1>
+    <p class="hero-sub">A peaceful hill station nestled among dense pine and deodar forests — where I grew up and fell in love with the mountains.</p>
+    <div class="hero-divider">
+      <span class="line-green"></span>
+      <div class="dot"></div>
+      <span class="line-blue"></span>
+    </div>
+  </div>
+
+  <!-- Sections -->
+  <div class="sections">
+
+    <!-- Intro / Cricket Ground -->
+    <div class="section-card strip-green animate__animated animate__fadeInUp">
+      <div class="card-img-half">
+        <img src="assests/cricketground.jpg" alt="Chail Cricket Ground">
+      </div>
+      <div class="card-text-half">
+        <span class="card-label label-green">Overview</span>
+        <h2>The Highest Cricket Ground in the World</h2>
+        <p>Chail, Himachal Pradesh is a peaceful hill station located near Solan, surrounded by dense pine and deodar forests. It's home to the historic Chail Palace and the <strong>highest cricket ground in the world</strong>, offering a perfect escape for nature and adventure lovers.</p>
+      </div>
+    </div>
+
+    <!-- Palace -->
+    <div class="section-card reverse strip-blue animate__animated animate__fadeInUp">
+      <div class="card-img-half">
+        <img src="assests/Palacehotel.jpg" alt="Chail Palace">
+      </div>
+      <div class="card-text-half">
+        <span class="card-label label-blue">Heritage</span>
+        <h2>The Magnificent Chail Palace</h2>
+        <p>One of the highlights of Chail is the magnificent <strong>Chail Palace</strong>, built in the late 19th century by Maharaja Bhupinder Singh of Patiala. Surrounded by lush forests, the palace showcases beautiful architecture, royal gardens, and peaceful surroundings that reflect the grand history of the region.</p>
+      </div>
+    </div>
+
+    <!-- School -->
+    <div class="section-card strip-forest animate__animated animate__fadeInUp">
+      <div class="card-img-half">
+        <img src="assests/rms.png" alt="Rashtriya Military School Chail">
+      </div>
+      <div class="card-text-half">
+        <span class="card-label label-forest">Education</span>
+        <h2>Rashtriya Military School, Chail</h2>
+        <p>Chail also proudly hosts the prestigious <strong>Rashtriya Military School, Chail</strong>, one of the oldest military schools in India. I had the honor of studying here — an experience that taught me discipline, leadership, and strong values amidst the beautiful hills.</p>
+      </div>
+    </div>
+
+    <!-- Kali Ka Tibba -->
+    <div class="section-card reverse strip-gold animate__animated animate__fadeInUp">
+      <div class="card-img-half">
+        <img src="assests/kalikatibba.jpg" alt="Kali Ka Tibba">
+      </div>
+      <div class="card-text-half">
+        <span class="card-label label-gold">Spirituality</span>
+        <h2>Kali Ka Tibba Temple</h2>
+        <p>One of the most beautiful spots in Chail is <strong>Kali Ka Tibba</strong>, a peaceful hilltop temple dedicated to Goddess Kali. The temple offers breathtaking sunset views and a spiritual escape with panoramic scenes of the Shivalik Hills.</p>
+      </div>
+    </div>
+
+    <!-- Winters -->
+    <div class="section-card strip-mist animate__animated animate__fadeInUp">
+      <div class="card-img-half">
+        <img src="assests/snow.jpg" alt="Snowy Road in Chail">
+      </div>
+      <div class="card-text-half">
+        <span class="card-label label-mist">Seasons</span>
+        <h2>Magical Winters in Chail</h2>
+        <p>Chail is magical during winters when the roads and trees are covered with soft snow. Walking through these snowy paths surrounded by nature feels like stepping into a dream. It's one of the purest experiences of Himachal Pradesh's beauty.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<footer style="background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; padding: 52px 0 0;">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start;">
+
+    <!-- Footer -->
+    <div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.9rem;letter-spacing:-1px;margin-bottom:8px;">
+        Mohit Sandhu<em style="color:var(--accent);font-style:normal;"></em>
+      </div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:20px;">Designer · Developer · Creator</p>
+      <div style="display:flex;gap:10px;">
+        <a href="https://github.com/Mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/mohit_sandhu86?igsh=MjNzenBoMmZvOHFk&utm_source=qr" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Contact</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:13px;">
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(233,69,96,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-envelope" style="color:var(--accent);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Email</span>
+            <a href="mailto:youremail@gmail.com" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">4086mohit@gmail.com</a>
+          </div>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,203,106,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-phone" style="color:var(--gold);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Phone</span>
+            <p href="tel:+11234567890" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">+1 6395544086</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Navigate -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Navigate</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
+        <li><a href="index.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Home</a></li>
+        <li><a href="projects.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Projects</a></li>
+        <li><a href="resume.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Resume</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="height:1px;background:rgba(255,255,255,.08);max-width:1080px;margin:40px auto 0;"></div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">© 2025 <span style="color:var(--accent);">Mohit</span>. All rights reserved.</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">Made with <span style="color:var(--accent);">♥</span> at Saskatchewan Polytechnic</p>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#navbar").load("components/navbar.html", function () {
+      $("#hometown-tab").addClass("active");
+    });
+  });
+</script>
+</body>
+</html>

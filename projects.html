@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects Mohit</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      #cursor-trail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+      :root {
+        --navy: #0f3460;
+      }
+      .card {
+        background: linear-gradient(to right, #f0f8ff, #e0f7fa);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        cursor: pointer;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important;
+      }
+      .card-body {
+        flex-grow: 1;
+      }
+
+      body {
+        background: linear-gradient(to right, #f0f8ff, #e0f7fa);
+      }
+
+      .border.rounded {
+        background: linear-gradient(135deg, #dff4fb, #e8f5e9);
+        border: 1px solid #b2dfdb !important;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .border.rounded:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      /* ── LIGHTBOX ── */
+      #lightbox-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+      }
+      #lightbox-overlay.active {
+        display: flex;
+      }
+      #lightbox-overlay img {
+        max-width: 92vw;
+        max-height: 90vh;
+        border-radius: 8px;
+        object-fit: contain;
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+      }
+      #lightbox-close {
+        position: fixed;
+        top: 20px;
+        right: 28px;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        line-height: 1;
+        z-index: 10000;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+      #lightbox-close:hover {
+        opacity: 1;
+      }
+
+      /* ── 3D SECTION ── */
+      .sec {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 52px 12px 28px;
+      }
+      .sec h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin: 0;
+      }
+      .sec::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+        margin-left: 10px;
+      }
+
+      .sec-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        color: white;
+      }
+      .sec-icon.purple {
+        background: #7c3aed;
+      }
+
+      .project-block {
+        background: white;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        margin: 0 12px 24px 12px;
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.25s;
+      }
+      .project-block:hover {
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.11);
+      }
+
+      .project-block-header {
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .project-block-header h4 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0 0 4px;
+      }
+      .project-block-header p {
+        font-size: 0.88rem;
+        color: #6b7280;
+        margin: 0;
+        max-width: 600px;
+      }
+
+      .tool-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #ede9fe;
+        color: #5b21b6;
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .tool-tag.ue {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .img-gallery {
+        display: grid;
+        gap: 3px;
+        padding: 3px;
+      }
+      .img-gallery.cols-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .img-gallery.cols-3-equal {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .gallery-img {
+        overflow: hidden;
+        cursor: zoom-in;
+        background: #0f1117;
+        min-height: 220px;
+      }
+      .gallery-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition:
+          transform 0.4s ease,
+          filter 0.3s ease;
+      }
+      .gallery-img:hover img {
+        transform: scale(1.04);
+        filter: brightness(1.08);
+      }
+
+      .gallery-placeholder {
+        width: 100%;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #1a1a2e;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.85rem;
+      }
+      .gallery-placeholder i {
+        font-size: 2rem;
+        opacity: 0.35;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="cursor-trail.js" data-color="#f59e0b"></script>
+    <div id="lightbox-overlay">
+      <span id="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="Preview" />
+    </div>
+
+    <div id="navbar"></div>
+    <div class="container py-5">
+      <!-- Design Projects -->
+      <h2 class="text-center fw-bold mb-4 mt-5">
+        🎨 Design, Illustrations & Logos
+      </h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/memoriessong.jpg"
+          >
+            <h5 class="card-title fw-bold p-3">
+              Typography Poster – Maroon 5 "Memories"
+            </h5>
+            <img
+              src="assests/memoriessong.jpg"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="Typography Poster"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                A creative typography poster based on Maroon 5's song
+                "Memories." Built with 5+ font styles, visual hierarchy, and
+                emotional color contrast for an 18x24" print layout.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/amlify.jpg"
+          >
+            <h5 class="card-title fw-bold p-3">Music Album Covers – Amplify</h5>
+            <img
+              src="assests/amlify.jpg"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="Album Amplify"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                A pair of album covers created with advanced Photoshop
+                techniques: layered textures, adjustment layers, color
+                balancing, and compositing for a professional music vibe.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/GRPH200-Assignment7-Mohit-Vinyl cover.jpg"
+          >
+            <h5 class="card-title fw-bold p-3">
+              Vinyl Album Cover – "Timeless"
+            </h5>
+            <img
+              src="assests/GRPH200-Assignment7-Mohit-Vinyl cover.jpg"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="Vinyl Album Cover"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                Designed as part of a Photoshop album cover series. Features
+                stylized portrait editing, vinyl integration, and textured
+                overlays to capture a retro-modern vibe.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/lonewarrior.jpg"
+          >
+            <h5 class="card-title fw-bold p-3">
+              Complex Vector Illustration – Through Fire & Fury
+            </h5>
+            <img
+              src="assests/lonewarrior.jpg"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="Vector Artwork"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                An original vector artwork built in Adobe Illustrator depicting
+                a lone warrior in a fiery volcanic world. Uses layering,
+                shading, and storytelling in vector style.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/shadow.jpg"
+          >
+            <h5 class="card-title fw-bold p-3">
+              Comic Book Poster – Shadow: Hero Born in Darkness
+            </h5>
+            <img
+              src="assests/shadow.jpg"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="Comic Poster"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                A fictional comic book poster featuring a vigilante hero. Strong
+                poses, gritty city backgrounds, and bold color work to establish
+                a powerful comic style.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/msix.png"
+          >
+            <h5 class="card-title fw-bold p-3">Logo Design – MSIX</h5>
+            <img
+              src="assests/msix.png"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="MSIX Logo"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                A bold logo for MSIX, a creative design brand. Features a
+                stylized bull skull with a gritty, rebellious aesthetic,
+                representing creative dominance and toughness.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div
+            class="card h-100 shadow-sm text-center"
+            data-lightbox="assests/vibefitness.png"
+          >
+            <h5 class="card-title fw-bold p-3">Logo Design – VIBE</h5>
+            <img
+              src="assests/vibefitness.png"
+              class="card-img-top p-3 img-fluid"
+              style="max-height: 300px; width: auto; margin: 0 auto"
+              alt="VIBE Logo"
+            />
+            <div class="card-body">
+              <p class="card-text small">
+                A clean, powerful logo for VIBE fitness. Designed with
+                movement-focused shapes, strong typography, and color minimalism
+                to highlight energy and passion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════
+     FEATURED VIDEO SECTION
+══════════════════════════════ -->
+<div class="sec">
+  <div class="sec-icon" style="background: #dc2626;"><i class="fab fa-youtube"></i></div>
+  <h2>Video Production</h2>
+</div>
+
+<!-- VIDEO 1 — Latest -->
+<div class="project-block">
+  <div class="project-block-header">
+    <div>
+      <h4>Latest Video – Recorded & Edited by Mohit Sandhu</h4>
+      <p>My latest video, fully recorded and edited by me in Premiere Pro. Currently levelling up my skills by learning After Effects.</p>
+    </div>
+    <span class="tool-tag" style="background: #fee2e2; color: #b91c1c;">
+      <i class="fab fa-youtube"></i>&nbsp; YouTube
+    </span>
+  </div>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+    <iframe
+      src="https://www.youtube.com/embed/fjGYdlzOvQU"
+      title="Latest Video – Recorded & Edited by Mohit Sandhu"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<!-- VIDEO 2 — First Ever -->
+<div class="project-block">
+  <div class="project-block-header">
+    <div>
+      <h4>First Ever Video – Horror Parody</h4>
+      <p>The very first video I ever recorded and edited. A horror parody style video - where it all started for me in video production.</p>
+    </div>
+    <span class="tool-tag" style="background: #fee2e2; color: #b91c1c;">
+      <i class="fab fa-youtube"></i>&nbsp; YouTube
+    </span>
+  </div>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+    <iframe
+      src="https://www.youtube.com/embed/0KQ75Oyzh44"
+      title="First Ever Video – Horror Parody"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+      <div class="sec">
+        <div class="sec-icon purple"><i class="fa fa-cube"></i></div>
+        <h2>3D Design &amp; Game Environments</h2>
+      </div>
+
+      <!-- PROJECT 1 — Blender 3D Room -->
+      <div class="project-block">
+        <div class="project-block-header">
+          <div>
+            <h4>3D Room Design</h4>
+            <p>
+              A fully modelled interior room built in Blender — complete with
+              furniture, props, lighting rigs, PBR textures, and camera
+              composition to achieve photorealistic renders.
+            </p>
+          </div>
+          <span class="tool-tag"><i class="fa fa-cube"></i> &nbsp;Blender</span>
+        </div>
+        <div class="img-gallery cols-2">
+          <div class="gallery-img" data-lightbox="assests/Roomrender1.png">
+            <img src="assests/Roomrender1.png" alt="3D Room render 1" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Roomrender2.png">
+            <img src="assests/Roomrender2.png" alt="3D Room render 2" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Roomrender3.png">
+            <img src="assests/Roomrender3.png" alt="3D Room render 3" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Roomrender4.png">
+            <img src="assests/Roomrender4.png" alt="3D Room render 4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 — Blender Donut -->
+      <div class="project-block">
+        <div class="project-block-header">
+          <div>
+            <h4>Blender Donut</h4>
+            <p>
+              The iconic Blender beginner project taken to a finished render —
+              featuring subsurface scattering, procedural icing, realistic
+              sprinkles, studio lighting, and a polished final composition.
+            </p>
+          </div>
+          <span class="tool-tag"><i class="fa fa-cube"></i> &nbsp;Blender</span>
+        </div>
+        <div class="img-gallery cols-2">
+          <div class="gallery-img" data-lightbox="assests/Donut1.png">
+            <img src="assests/Donut1.png" alt="Donut render 1" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Donut2.png">
+            <img src="assests/Donut2.png" alt="Donut render 2" />
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 — Unreal Engine VR Room (placeholders) -->
+      <div class="project-block">
+        <div class="project-block-header">
+          <div>
+            <h4>Unreal Engine – VR Room Environment</h4>
+            <p>
+              An immersive VR-ready room designed in Unreal Engine, featuring
+              real-time lighting, high-res textures, and interactive layout —
+              built to demonstrate game-engine-level environment design.
+            </p>
+          </div>
+          <span class="tool-tag ue"
+            ><i class="fa fa-vr-cardboard"></i> &nbsp;Unreal Engine</span
+          >
+        </div>
+        <div class="img-gallery cols-3-equal">
+          <div class="gallery-img" data-lightbox="assests/Unreal1.png">
+            <img src="assests/Unreal1.png" alt="VR Room 1" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Unreal2.png">
+            <img src="assests/Unreal2.png" alt="VR Room 2" />
+          </div>
+          <div class="gallery-img" data-lightbox="assests/Unreal3.png">
+            <img src="assests/Unreal3.png" alt="VR Room 3" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Web Projects -->
+      <h2 class="text-center fw-bold mt-5 mb-4">🌐 Web Projects</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Responsive Camera Technique Page</h5>
+            <p class="small">
+              A single-page layout demonstrating different photography
+              techniques such as shutter speed, motion blur, and lighting.
+              Designed to showcase image handling and responsive design.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="https://www.webtechsandhu.com/phot126exercise1/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Photo a Day Gallery</h5>
+            <p class="small">
+              A mobile-friendly website showcasing 15 photography prompts
+              captured over time. Each photo includes a caption reflecting daily
+              photography goals and techniques.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="https://www.webtechsandhu.com/phot126/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Responsive Music Album Website</h5>
+            <p class="small">
+              A multi-page responsive website using media queries, optimized
+              images, and embedded multimedia to promote a Music Album. Includes
+              layout shifts for various screen sizes.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="http://www.webtechsandhu.com/mult124a2/index.html"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">WordPress Portfolio Site</h5>
+            <p class="small">
+              A reimplementation of the original Music Album website using
+              WordPress. Custom theme and plugin integration were used to mirror
+              content and design structure.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="https://webtechsandhu.com/mult124-a3/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Macro Photography Tour Page</h5>
+            <p class="small">
+              A project completed from starter code to create a fully responsive
+              website for a photography tour company. Includes typography
+              scaling, image responsiveness, and mobile nav.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="http://www.webtechsandhu.com/mult124/a1/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">CSS Showcase Page</h5>
+            <p class="small">
+              An HTML and CSS-focused website highlighting various styling
+              techniques including pseudo-classes and structural
+              pseudo-selectors like :nth-child and :hover.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="http://www.webtechsandhu.com/mult120/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Audio Portfolio Website</h5>
+            <p class="small">
+              A website showcasing five audio projects including a themed piano,
+              custom sound effects, podcast editing, a soundscape, and synced
+              animation audio.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="http://www.webtechsandhu.com/minion-piano/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="border rounded p-3 h-100 shadow-sm">
+            <h5 class="fw-bold mb-2">Analytics-Based Landing Page</h5>
+            <p class="small">
+              A brand landing page built using marketing techniques and
+              connected to Google Analytics. Tracks visitor data for evaluation
+              and improvement.
+            </p>
+            <a
+              class="btn btn-primary mt-2"
+              href="http://webtechsandhu.com/assignment6/"
+              target="_blank"
+              >Open Project</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      style="
+        background: var(--navy);
+        color: white;
+        font-family: &quot;DM Sans&quot;, sans-serif;
+        padding: 52px 0 0;
+      "
+    >
+      <div
+        style="
+          max-width: 1080px;
+          margin: 0 auto;
+          padding: 0 32px;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 40px;
+          align-items: start;
+        "
+      >
+        <!-- Footer -->
+        <div>
+          <div
+            style="
+              font-family: &quot;DM Serif Display&quot;, serif;
+              font-size: 1.9rem;
+              letter-spacing: -1px;
+              margin-bottom: 8px;
+            "
+          >
+            Mohit Sandhu<em
+              style="color: var(--accent); font-style: normal"
+            ></em>
+          </div>
+          <p
+            style="
+              font-size: 0.82rem;
+              color: rgba(255, 255, 255, 0.45);
+              margin-bottom: 20px;
+            "
+          >
+            Designer · Developer · Creator
+          </p>
+          <div style="display: flex; gap: 10px">
+            <a
+              href="https://github.com/Mohit4086"
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+              "
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/mohit4086"
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+              "
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/mohit_sandhu86?igsh=MjNzenBoMmZvOHFk&utm_source=qr"
+              style="
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+              "
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h5
+            style="
+              font-size: 0.72rem;
+              letter-spacing: 2.5px;
+              text-transform: uppercase;
+              color: var(--gold);
+              font-weight: 600;
+              margin-bottom: 18px;
+            "
+          >
+            Contact
+          </h5>
+          <ul
+            style="
+              list-style: none;
+              display: flex;
+              flex-direction: column;
+              gap: 13px;
+            "
+          >
+            <li style="display: flex; align-items: flex-start; gap: 11px">
+              <div
+                style="
+                  width: 32px;
+                  height: 32px;
+                  border-radius: 8px;
+                  background: rgba(233, 69, 96, 0.18);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                "
+              >
+                <i
+                  class="fa fa-envelope"
+                  style="color: var(--accent); font-size: 0.75rem"
+                ></i>
+              </div>
+              <div>
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    color: rgba(255, 255, 255, 0.4);
+                    display: block;
+                    margin-bottom: 2px;
+                  "
+                  >Email</span
+                >
+                <a
+                  href="mailto:youremail@gmail.com"
+                  style="
+                    font-size: 0.85rem;
+                    color: rgba(255, 255, 255, 0.88);
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                  >4086mohit@gmail.com</a
+                >
+              </div>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 11px">
+              <div
+                style="
+                  width: 32px;
+                  height: 32px;
+                  border-radius: 8px;
+                  background: rgba(255, 203, 106, 0.18);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                "
+              >
+                <i
+                  class="fa fa-phone"
+                  style="color: var(--gold); font-size: 0.75rem"
+                ></i>
+              </div>
+              <div>
+                <span
+                  style="
+                    font-size: 0.7rem;
+                    color: rgba(255, 255, 255, 0.4);
+                    display: block;
+                    margin-bottom: 2px;
+                  "
+                  >Phone</span
+                >
+                <p
+                  href="tel:+11234567890"
+                  style="
+                    font-size: 0.85rem;
+                    color: rgba(255, 255, 255, 0.88);
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                >
+                  +1 6395544086
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Navigate -->
+        <div>
+          <h5
+            style="
+              font-size: 0.72rem;
+              letter-spacing: 2.5px;
+              text-transform: uppercase;
+              color: var(--gold);
+              font-weight: 600;
+              margin-bottom: 18px;
+            "
+          >
+            Navigate
+          </h5>
+          <ul
+            style="
+              list-style: none;
+              display: flex;
+              flex-direction: column;
+              gap: 11px;
+            "
+          >
+            <li>
+              <a
+                href="index.html"
+                style="
+                  color: rgba(255, 255, 255, 0.6);
+                  text-decoration: none;
+                  font-size: 0.88rem;
+                "
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="projects.html"
+                style="
+                  color: rgba(255, 255, 255, 0.6);
+                  text-decoration: none;
+                  font-size: 0.88rem;
+                "
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a
+                href="resume.html"
+                style="
+                  color: rgba(255, 255, 255, 0.6);
+                  text-decoration: none;
+                  font-size: 0.88rem;
+                "
+                >Resume</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          height: 1px;
+          background: rgba(255, 255, 255, 0.08);
+          max-width: 1080px;
+          margin: 40px auto 0;
+        "
+      ></div>
+
+      <div
+        style="
+          max-width: 1080px;
+          margin: 0 auto;
+          padding: 16px 32px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 8px;
+        "
+      >
+        <p style="font-size: 0.78rem; color: rgba(255, 255, 255, 0.32)">
+          © 2025 <span style="color: var(--accent)">Mohit</span>. All rights
+          reserved.
+        </p>
+        <p style="font-size: 0.78rem; color: rgba(255, 255, 255, 0.32)">
+          Made with <span style="color: var(--accent)">♥</span> at Saskatchewan
+          Polytechnic
+        </p>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#navbar").load("components/navbar.html", function () {
+          $("#projects-tab").addClass("active");
+        });
+      });
+
+      function openLightbox(src) {
+        document.getElementById("lightbox-img").src = src;
+        document.getElementById("lightbox-overlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+      function closeLightbox() {
+        document.getElementById("lightbox-overlay").classList.remove("active");
+        document.getElementById("lightbox-img").src = "";
+        document.body.style.overflow = "";
+      }
+
+      // Design poster cards
+      document.querySelectorAll(".card[data-lightbox]").forEach((card) => {
+        card.addEventListener("click", function () {
+          openLightbox(this.getAttribute("data-lightbox"));
+        });
+      });
+
+      // 3D gallery images
+      document.querySelectorAll(".gallery-img[data-lightbox]").forEach((el) => {
+        el.addEventListener("click", () => openLightbox(el.dataset.lightbox));
+      });
+
+      // Close
+      document
+        .getElementById("lightbox-overlay")
+        .addEventListener("click", closeLightbox);
+      document
+        .getElementById("lightbox-close")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+          closeLightbox();
+        });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+      });
+    </script>
+  </body>
+</html>

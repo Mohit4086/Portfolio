@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohit Portfolio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --ink:    #1a1a2e;
+      --accent: #e94560;
+      --navy:   #0f3460;
+      --muted:  #6b7280;
+      --gold:   #ffcb6a;
+      --border: #e2e8f0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f4fd 55%, #f0fff4 100%);
+      color: var(--ink);
+      overflow-x: hidden;
+      cursor: auto;
+    }
+      /* ── CURSOR TRAIL ── */
+ .cursor-hint {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(18px, 18px);
+  font-size: 12px;
+  color: white;
+  background: rgba(15, 52, 96, 0.9);
+  padding: 8px 12px;
+  border-radius: 999px;
+  z-index: 10001;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+@keyframes hintFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 80px;
+      position: relative; overflow: hidden;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(70px); opacity: 0.38; pointer-events: none;
+    }
+    .blob-1 { width: 440px; height: 440px; background: #bfdbfe; top: -120px; right: -100px; }
+    .blob-2 { width: 300px; height: 300px; background: #fde68a; bottom: -60px; left: -70px; }
+    .blob-3 { width: 180px; height: 180px; background: #bbf7d0; bottom: 160px; right: 22%; }
+
+    .hero-eyebrow {
+      font-size: .82rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content:''; width:32px; height:2px; background:var(--accent); display:block; }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 5.2rem);
+      line-height: 1.02; letter-spacing: -2px; margin-bottom: 16px;
+    }
+    .hero-name em { color: var(--accent); font-style: normal; }
+
+    .hero-roles { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: white; border: 1.5px solid var(--border);
+      color: var(--navy); font-weight: 600; font-size: .8rem;
+      padding: 6px 16px; border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .chip i { color: var(--accent); font-size: .72rem; }
+
+    .hero-desc {
+      font-size: 1.02rem; color: #374151;
+      line-height: 1.85; margin-bottom: 18px; max-width: 520px;
+    }
+
+    .quote-block {
+      border-left: 4px solid var(--gold);
+      padding: 14px 20px;
+      background: rgba(255,203,106,.09);
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 28px; max-width: 520px;
+    }
+    .quote-block p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.08rem; color: var(--ink); margin: 0; font-style: italic;
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
+    .btn-main {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--accent); color: white;
+      padding: 13px 30px; border-radius: 100px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(233,69,96,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(233,69,96,.42); color: white; }
+    .btn-sec {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: transparent; color: var(--navy);
+      border: 2px solid var(--navy); padding: 11px 26px;
+      border-radius: 100px; font-weight: 600; font-size: .95rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-sec:hover { background: var(--navy); color: white; }
+
+    .stats-row { display: flex; gap: 36px; flex-wrap: wrap; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; color: var(--ink); line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-lbl { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; margin-top: 2px; }
+
+    /* ── IMAGE COLUMN ──
+       position:relative so the badges use THIS as their anchor */
+    .img-col {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* give the column enough padding so badges don't get clipped */
+      padding: 40px 60px;
+    }
+
+    /* spinning ring frame — sized around the photo only */
+    .about-frame {
+      position: relative;
+      width: 300px; height: 300px;
+      flex-shrink: 0;
+    }
+    .about-frame::before {
+      content: '';
+      position: absolute; inset: -14px; border-radius: 50%;
+      border: 3px dashed var(--gold);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .about-frame::after {
+      content: '';
+      position: absolute; inset: -5px; border-radius: 50%;
+      border: 4px solid var(--accent); opacity: .25;
+    }
+    .about-frame img {
+      width: 300px; height: 300px;
+      border-radius: 50%; object-fit: cover;
+      border: 6px solid white;
+      box-shadow: 0 16px 48px rgba(0,0,0,.13);
+      position: relative; z-index: 1;
+      display: block;
+    }
+
+    /* badges anchored to .img-col */
+    .floating-badge {
+      position: absolute;
+      background: white; border-radius: 14px;
+      padding: 11px 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      display: flex; align-items: center; gap: 10px;
+      z-index: 10;
+      white-space: nowrap;
+    }
+    /* Adobe Suite — bottom-left of the image column */
+    .fb-design {
+      bottom: 20px;
+      left: 0px;
+      animation: fbFloat 3.2s ease-in-out infinite;
+    }
+    /* Web Dev — top-right of the image column */
+    .fb-web {
+      top: 20px;
+      right: 0px;
+      animation: fbFloat 3.2s ease-in-out infinite 1.6s;
+    }
+    @keyframes fbFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-9px); }
+    }
+    .fb-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .fb-icon.amber { background: #fef3c7; }
+    .fb-icon.blue  { background: #dbeafe; }
+    .fb-text strong { display: block; font-size: .82rem; font-weight: 700; color: var(--ink); }
+    .fb-text span   { font-size: .72rem; color: var(--muted); }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--muted); font-size: .75rem; letter-spacing: 1.5px;
+      text-transform: uppercase; animation: fadeInUp 1s ease 1.5s both;
+    }
+    .scroll-hint .arrow {
+      width: 26px; height: 26px; border: 2px solid var(--border);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--gold), var(--navy));
+      margin-top: 20px;
+    }
+
+    /* ── SKILLS STRIP ── */
+    .skills-strip { background: var(--navy); padding: 64px 0; }
+    .skills-strip h2 {
+      font-family: 'DM Serif Display', serif;
+      color: white; text-align: center;
+      font-size: 1.8rem; margin-bottom: 38px; letter-spacing: -.3px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 12px; max-width: 1000px; margin: 0 auto; padding: 0 20px;
+    }
+    .skill-pill {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px; padding: 13px 16px;
+      display: flex; align-items: center; gap: 10px;
+      color: white; font-size: .87rem; font-weight: 500;
+      transition: background .2s, transform .2s;
+    }
+    .skill-pill:hover { background: rgba(255,255,255,.16); transform: translateY(-2px); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-red    { background: var(--accent); }
+    .dot-gold   { background: var(--gold); }
+    .dot-blue   { background: #60a5fa; }
+    .dot-purple { background: #a78bfa; }
+
+    /* ── DRIVES ── */
+    .drives-section { padding: 90px 0 100px; }
+    .sec-eyebrow {
+      font-size: .78rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      letter-spacing: -.5px; margin-bottom: 48px;
+    }
+    .drives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .drive-card {
+      background: white; border-radius: 16px; padding: 28px 24px;
+      border-top: 4px solid transparent;
+      box-shadow: 0 2px 14px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .drive-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,.11); }
+    .drive-card.c1 { border-top-color: var(--accent); }
+    .drive-card.c2 { border-top-color: var(--gold); }
+    .drive-card.c3 { border-top-color: #34d399; }
+    .drive-card.c4 { border-top-color: #60a5fa; }
+    .drive-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .drive-card h4 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 8px; }
+    .drive-card p { font-size: .9rem; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media(max-width: 991px) {
+      .img-col { margin-top: 48px; padding: 50px 80px; }
+    }
+    @media(max-width: 576px) {
+      .floating-badge { display: none; }
+      .hero { padding-top: 90px; }
+      .img-col { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+<script src="cursor-trail.js" data-color="#14b8a6"></script>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- LEFT — text -->
+        <div class="col-lg-6 animate__animated animate__fadeInLeft">
+          <p class="hero-eyebrow">Welcome to my portfolio</p>
+          <h1 class="hero-name">Hi, I'm<br><em>Mohit</em></h1>
+
+          <div class="hero-roles">
+            <span class="chip"><i class="fa fa-code"></i> Web Developer</span>
+            <span class="chip"><i class="fa fa-palette"></i> Graphic Designer</span>
+            <span class="chip"><i class="fa fa-cube"></i> 3D Artist</span>
+            <span class="chip"><i class="fa fa-film"></i> Video Editor</span>
+          </div>
+
+          <p class="hero-desc">
+            A creative mind passionate about blending technology and design. I craft responsive websites,
+            design bold posters, model 3D environments, and edit videos that bring ideas to life.
+            Every project is a chance to combine creativity, storytelling, and detail into something unique.
+I believe that great work doesn’t just look good, it connects with people and leaves a lasting impact. I'm always learning, evolving, and excited to create more experiences that inspire.          </p>
+          <p class="hero-desc" style="margin-top:-10px;">
+            I studied at Rashtriya Military School, Chail, an experience that gave me discipline,
+            leadership, and resilience. Now I'm channelling that same energy into design and tech
+            at Saskatchewan Polytechnic.
+          </p>
+
+          <div class="quote-block">
+            <p>"Stay curious, stay creative, and never stop building."</p>
+          </div>
+
+          <div class="cta-row">
+            <a href="projects.html" class="btn-main"><i class="fa fa-folder-open"></i> See My Work</a>
+            <a href="resume.html"   class="btn-sec"><i class="fa fa-file-lines"></i> My Resume</a>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-num">15<span>+</span></div>
+              <div class="stat-lbl">Projects Done</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">7<span>+</span></div>
+              <div class="stat-lbl">Design Tools</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3</div>
+              <div class="stat-lbl">Languages Spoken</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT — image column with badges positioned inside it -->
+        <div class="col-lg-6 img-col animate__animated animate__fadeInRight">
+
+          <div class="floating-badge fb-design">
+            <div class="fb-icon amber">🎨</div>
+            <div class="fb-text">
+              <strong>Adobe Suite</strong>
+              <span>Ps · Ai · Pr · Id</span>
+            </div>
+          </div>
+
+          <div class="about-frame">
+            <img src="assests/aboutpage.png" alt="Mohit">
+          </div>
+
+          <div class="floating-badge fb-web">
+            <div class="fb-icon blue">🌐</div>
+            <div class="fb-text">
+              <strong>Web Dev</strong>
+              <span>HTML · CSS · JS · React</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="arrow"><i class="fa fa-chevron-down"></i></div>
+    </div>
+  </section>
+
+  <!-- ── DIVIDER ── -->
+  <div class="section-divider"></div>
+
+  <!-- ── SKILLS STRIP ── -->
+  <div class="skills-strip">
+    <h2>What I Work With</h2>
+    <div class="skills-grid">
+      <div class="skill-pill"><span class="dot dot-red"></span> Adobe Photoshop</div>
+      <div class="skill-pill"><span class="dot dot-red"></span> Adobe Illustrator</div>
+      <div class="skill-pill"><span class="dot dot-red"></span> Adobe InDesign</div>
+      <div class="skill-pill"><span class="dot dot-red"></span> Adobe Lightroom</div>
+      <div class="skill-pill"><span class="dot dot-red"></span> Premiere Pro</div>
+      <div class="skill-pill"><span class="dot dot-red"></span> Figma</div>
+      <div class="skill-pill"><span class="dot dot-blue"></span> HTML5 &amp; CSS3</div>
+      <div class="skill-pill"><span class="dot dot-blue"></span> JavaScript</div>
+      <div class="skill-pill"><span class="dot dot-blue"></span> React</div>
+      <div class="skill-pill"><span class="dot dot-blue"></span> WordPress</div>
+      <div class="skill-pill"><span class="dot dot-blue"></span> React Native</div>
+      <div class="skill-pill"><span class="dot dot-purple"></span> Blender</div>
+      <div class="skill-pill"><span class="dot dot-purple"></span> Unreal Engine</div>
+      <div class="skill-pill"><span class="dot dot-gold"></span> Tinkercad</div>
+      <div class="skill-pill"><span class="dot dot-gold"></span> 3D Printing</div>
+    </div>
+  </div>
+
+  <!-- ── WHAT DRIVES ME ── -->
+  <section class="drives-section">
+    <div class="container">
+      <p class="sec-eyebrow reveal">My Approach</p>
+      <h2 class="sec-title reveal">What drives my work</h2>
+      <div class="drives-grid">
+        <div class="drive-card c1 reveal">
+          <h4>Design First</h4>
+          <p>Every project starts with a strong visual concept. I believe the look and feel shapes how people experience something — before they read a word.</p>
+        </div>
+        <div class="drive-card c2 reveal">
+          <h4>Always Learning</h4>
+          <p>From web dev to 3D modelling to motion design — I constantly pick up new tools and techniques to bring fresh ideas to every project.</p>
+        </div>
+        <div class="drive-card c3 reveal">
+          <h4>Team Player</h4>
+          <p>My background in customer service and military school leadership taught me to listen, collaborate, and bring out the best in group settings.</p>
+        </div>
+        <div class="drive-card c4 reveal">
+          <h4>Built to Ship</h4>
+          <p>I don't just design — I build. Whether it's a live website, a print-ready poster, or a 3D render, I see every project through to a finished deliverable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<footer style="background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; padding: 52px 0 0;">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start;">
+
+    <!-- Footer -->
+    <div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.9rem;letter-spacing:-1px;margin-bottom:8px;">
+        Mohit Sandhu<em style="color:var(--accent);font-style:normal;"></em>
+      </div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:20px;">Designer · Developer · Creator</p>
+      <div style="display:flex;gap:10px;">
+        <a href="https://github.com/Mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mohit4086" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/mohit_sandhu86?igsh=MjNzenBoMmZvOHFk&utm_source=qr" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Contact</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:13px;">
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(233,69,96,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-envelope" style="color:var(--accent);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Email</span>
+            <a href="mailto:youremail@gmail.com" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">4086mohit@gmail.com</a>
+          </div>
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:11px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,203,106,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa fa-phone" style="color:var(--gold);font-size:.75rem;"></i>
+          </div>
+          <div>
+            <span style="font-size:.7rem;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;">Phone</span>
+            <p href="tel:+11234567890" style="font-size:.85rem;color:rgba(255,255,255,.88);font-weight:500;text-decoration:none;">+1 6395544086</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Navigate -->
+    <div>
+      <h5 style="font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;">Navigate</h5>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;">
+        <li><a href="index.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Home</a></li>
+        <li><a href="projects.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Projects</a></li>
+        <li><a href="resume.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.88rem;">Resume</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="height:1px;background:rgba(255,255,255,.08);max-width:1080px;margin:40px auto 0;"></div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">© 2025 <span style="color:var(--accent);">Mohit</span>. All rights reserved.</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.32);">Made with <span style="color:var(--accent);">♥</span> at Saskatchewan Polytechnic</p>
+  </div>
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#navbar").load("components/navbar.html", function () {
+        $("#home-tab").addClass("active");
+      });
+      const obs = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.08 }
+      );
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    });
+   const hint = document.querySelector('.cursor-hint');
+let hintShown = true;
+
+document.addEventListener('mousemove', (e) => {
+  if (!hint || !hintShown) return;
+
+  hint.style.left = e.clientX + 'px';
+  hint.style.top = e.clientY + 'px';
+  hint.style.opacity = '1';
+});
+
+setTimeout(() => {
+  if (hint) hint.style.opacity = '0';
+  hintShown = false;
+}, 4000);
+
+
+  </script>
+</body>
+</html>
