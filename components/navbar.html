@@ -1,0 +1,190 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  .site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(15, 52, 96, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.3s;
+  }
+  .site-nav.scrolled {
+    background: rgba(15, 52, 96, 0.98);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  .site-nav .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Brand */
+  .site-nav .brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: white;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .site-nav .brand .brand-dot {
+    width: 8px; height: 8px;
+    background: #e94560;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 1px;
+  }
+
+  /* Links */
+  .site-nav .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .site-nav .nav-links li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    color: rgba(255,255,255,0.72);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+  .site-nav .nav-links li a i {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+  .site-nav .nav-links li a:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
+  .site-nav .nav-links li a.active {
+    background: #e94560;
+    color: white;
+  }
+  .site-nav .nav-links li a.active i { opacity: 1; }
+
+  /* Hamburger */
+  .site-nav .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px; height: 36px;
+    background: none; border: none;
+    cursor: pointer; padding: 4px;
+  }
+  .site-nav .hamburger span {
+    display: block; height: 2px;
+    background: white; border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .site-nav .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .site-nav .hamburger.open span:nth-child(2) { opacity: 0; }
+  .site-nav .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .site-nav .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 16px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .site-nav .mobile-menu.open { display: flex; }
+  .site-nav .mobile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+  .site-nav .mobile-menu a i { font-size: 0.82rem; width: 16px; text-align: center; }
+  .site-nav .mobile-menu a:hover { background: rgba(255,255,255,0.1); color: white; }
+  .site-nav .mobile-menu a.active { background: #e94560; color: white; }
+
+  @media (max-width: 768px) {
+    .site-nav .nav-links { display: none; }
+    .site-nav .hamburger { display: flex; }
+  }
+</style>
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <!-- Brand -->
+    <a href="index.html" class="brand">
+      <span class="brand-dot"></span>
+      Mohit Sandhu
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="nav-links">
+      <li><a id="home-tab"     href="index.html">    <i class="fa fa-house"></i>     Home</a></li>
+      <li><a id="projects-tab" href="projects.html"> <i class="fa fa-laptop-code"></i> Projects</a></li>
+      <li><a id="resume-tab"   href="resume.html">   <i class="fa fa-file-lines"></i> Resume</a></li>
+      <li><a id="likes-tab"    href="likes.html">    <i class="fa fa-heart"></i>     Likes</a></li>
+      <li><a id="hometown-tab" href="hometown.html"> <i class="fa fa-location-dot"></i>  Hometown</a></li>
+    </ul>
+
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a id="home-tab-m"     href="index.html">    <i class="fa fa-house"></i>       Home</a>
+    <a id="projects-tab-m" href="projects.html"> <i class="fa fa-laptop-code"></i> Projects</a>
+    <a id="resume-tab-m"   href="resume.html">   <i class="fa fa-file-lines"></i>  Resume</a>
+    <a id="likes-tab-m"    href="likes.html">    <i class="fa fa-heart"></i>       Likes</a>
+    <a id="hometown-tab-m" href="hometown.html"> <i class="fa fa-location-dot"></i>    Hometown</a>
+  </div>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const siteNav = document.getElementById('siteNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close mobile menu when a link is clicked
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // Solidify on scroll
+  window.addEventListener('scroll', () => {
+    siteNav.classList.toggle('scrolled', window.scrollY > 30);
+  });
+</script>
